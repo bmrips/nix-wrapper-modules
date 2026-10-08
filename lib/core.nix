@@ -212,6 +212,7 @@ in
           lib.mkIf cfg.enable [ cfg.wrapper ];
       };
   };
+  imports = [ (lib.mkAliasOptionModule [ "self" ] [ "pkgs" ]) ];
   options = {
     install = lib.mkOption {
       description = ''
@@ -406,6 +407,13 @@ in
 
         Required in order to access `.wrapper` attribute,
         either directly, or indirectly.
+      '';
+    };
+    super = lib.mkOption {
+      type = lib.types.pkgs;
+      default = config.pkgs;
+      description = ''
+        The `super` nixpkgs pkgs instance in case of an overlay.
       '';
     };
     package = lib.mkOption {
